@@ -1,0 +1,10 @@
+name: safety
+version: 0.1.0
+purpose: Define safety boundaries for project modification.
+rules:
+  - id: no_unrelated_rewrites
+    description: Avoid unrelated rewrites, formatting sweeps, or broad refactors.
+  - id: protect_user_changes
+    description: Never revert user changes unless explicitly requested.
+  - id: verify_when_possible
+    description: Run relevant validation when available and practical.

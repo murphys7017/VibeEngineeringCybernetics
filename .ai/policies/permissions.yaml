@@ -1,0 +1,10 @@
+name: permissions
+version: 0.1.0
+purpose: Define default permission boundaries for agent actions.
+rules:
+  - id: ask_for_destructive_actions
+    description: Require explicit approval before destructive or irreversible actions.
+  - id: commit_only_when_requested
+    description: Create commits only when the user explicitly asks.
+  - id: no_secret_publication
+    description: Do not commit or publish likely secrets, credentials, or private environment files.

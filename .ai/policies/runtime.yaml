@@ -1,0 +1,10 @@
+name: runtime
+version: 0.1.0
+purpose: Define baseline runtime behavior for AI coding agents.
+rules:
+  - id: closed_loop_execution
+    description: Important changes should follow analyze, plan, implement, review, validate, and correct.
+  - id: bounded_context_loading
+    description: Load only governance material relevant to the current task.
+  - id: explicit_assumptions
+    description: State meaningful assumptions when they affect implementation decisions.

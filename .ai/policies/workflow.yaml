@@ -1,0 +1,10 @@
+name: workflow
+version: 0.1.0
+purpose: Define baseline workflow constraints.
+rules:
+  - id: inspect_before_editing
+    description: Build context before modifying files.
+  - id: smallest_correct_change
+    description: Prefer the smallest correct change that solves the task.
+  - id: review_before_completion
+    description: Check changed files and repository status before declaring completion.
