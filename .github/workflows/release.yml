@@ -38,7 +38,6 @@ jobs:
           mkdir -p "${PACKAGE_DIR}/tools"
 
           cp AGENTS.md "${PACKAGE_DIR}/"
-          cp README.md "${PACKAGE_DIR}/"
           cp -R .ai "${PACKAGE_DIR}/.ai"
           cp docs/runtime/README.md "${PACKAGE_DIR}/docs/runtime/"
           cp docs/runtime/agent_execution_protocol.md "${PACKAGE_DIR}/docs/runtime/"
@@ -80,7 +79,7 @@ jobs:
             - `docs/runtime/agent_execution_protocol.md`
             - `docs/runtime/release_package.md`
             - `tools/validate_runtime.py`
-            - `README.md`
+            - `INSTALL.md`
 
             Install by extracting the zip into a target repository root, then run:
 

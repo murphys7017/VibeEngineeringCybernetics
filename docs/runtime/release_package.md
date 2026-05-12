@@ -7,7 +7,6 @@ The GitHub Actions release workflow builds a zip package intended to be copied i
 The release package includes:
 
 - `AGENTS.md`
-- `README.md`
 - `.ai/`
 - `docs/runtime/README.md`
 - `docs/runtime/agent_execution_protocol.md`
@@ -16,7 +15,7 @@ The release package includes:
 - `tools/validate_runtime.py`
 - `INSTALL.md`
 
-The package does not include `references/` or `ai_governance_runtime_overview_manifest.md` by default. Those files are conceptual background for this repository, not required for installing the runtime into another project.
+The package does not include `README.md`, `references/`, or `ai_governance_runtime_overview_manifest.md` by default. Those files are conceptual background for this repository, or would conflict with files that commonly already exist in a target project.
 
 ## Installation
 
