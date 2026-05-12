@@ -25,10 +25,17 @@ evaluation:
   architecture_stability: pass | partial | fail | not_applicable
   governance_compliance: pass | partial | fail | not_applicable
   validation_status: passed | partial | failed | not_run
+  risk_level: low | medium | high | unknown
+  evidence:
+    - <file, command, checklist, or observation used as support>
   validation_gap:
     - <gap or skipped check>
+  residual_risk:
+    - <risk remaining after completion>
   key_risks:
     - <remaining risk>
+  required_correction:
+    - <correction required before safe completion>
   follow_up_required: true | false
 ```
 
@@ -86,3 +93,28 @@ May be `not_applicable` for:
 - Prefer `partial` over pretending a result is fully verified.
 - Prefer `not_applicable` over fake completeness.
 - Always surface validation gaps when checks were not run or were incomplete.
+
+## Result Semantics
+
+- `pass`: the criterion was checked and no material issue remains.
+- `partial`: the criterion was partly checked or some limitation remains.
+- `fail`: the criterion found an issue that should block or change completion.
+- `not_applicable`: the criterion does not apply to this task class or risk level.
+
+## Evidence Requirement
+
+Every `pass`, `partial`, or `fail` result should have supporting evidence.
+
+Evidence can include:
+
+- inspected files
+- commands or validation checks run
+- loaded checklists
+- review findings
+- explicit user approval
+
+## Correction Rule
+
+If `required_correction` is non-empty, the task should not be reported as fully complete.
+
+The final response should either describe the correction performed or explicitly state why correction remains pending.

@@ -4,6 +4,8 @@ This project uses `.ai/` as the runtime governance directory for AI coding agent
 
 Agents should not treat this file as the full governance system. This file is only the entry point and loading guide.
 
+For the shared Codex/OpenCode/Claude Code/Cursor execution protocol, read `docs/runtime/agent_execution_protocol.md`.
+
 ## Default Loading Order
 
 1. Read `.ai/README.md`.

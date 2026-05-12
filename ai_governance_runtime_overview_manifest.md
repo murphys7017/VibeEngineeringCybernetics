@@ -24,6 +24,8 @@ The system is designed for:
 - Gemini CLI
 - future coding agents
 
+The shared operational protocol for these agents is documented in `docs/runtime/agent_execution_protocol.md`.
+
 This project treats AI coding agents as:
 
 - probabilistic systems
@@ -273,6 +275,24 @@ toward:
 
 ```text
 policy-driven runtime systems
+```
+
+In v1, the practical runtime path is:
+
+```text
+AGENTS.md
+    ↓
+Task Classification
+    ↓
+Risk Estimation
+    ↓
+Loading Rules
+    ↓
+Workflow Execution
+    ↓
+Checklist and Evaluation
+    ↓
+State Update When Required
 ```
 
 ---
@@ -680,3 +700,32 @@ requiring:
 - bounded execution
 - stability-oriented architecture
 
+---
+
+# Positioning Boundary
+
+This project is inspired by Engineering Cybernetics, but it is not a mathematical control system implementation.
+
+The goal is not to formalize AI coding agents with complete control-theoretic models, transfer functions, state equations, or provable stability guarantees.
+
+That level of mathematical formalization is outside the scope of v1 and is not necessary for the practical purpose of this project.
+
+Instead, this project translates the core spirit of Engineering Cybernetics into a lightweight governance protocol for non-deterministic AI coding agents.
+
+The intended alignment is conceptual and operational:
+
+- treat an AI coding agent as an unstable runtime system that needs constraints
+- use layered rules to reduce uncontrolled behavior
+- use task classification and risk estimation to choose governance intensity
+- expose important runtime state instead of relying on hidden assumptions
+- use workflows, checklists, evaluation, and validation as feedback loops
+- preserve stability through bounded changes, reviewability, and rollback safety
+- adapt the same governance principles across Codex, OpenCode, Claude Code, Cursor, and future agents
+
+In short:
+
+```text
+Engineering Cybernetics as inspiration,
+AI agent governance as implementation target,
+lightweight execution discipline as v1 scope.
+```

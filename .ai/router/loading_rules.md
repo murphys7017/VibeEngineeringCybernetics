@@ -24,12 +24,36 @@ Load governance material based on task class and risk.
 - Constitution: `constitution/core.md`
 - Invariants: `invariants/core.md`
 - Policies: `policies/workflow.yaml`
-- Workflow: `workflows/feature_development.md`
-- Skills: `skills/implementation.md`
-- Checklists: `checklists/implementation.md`, `checklists/review.md`
-- Evaluation: `evaluation/execution_quality.md`
+- Workflow: `workflows/documentation.md`
+- Skills: `skills/implementation.md`, `skills/review.md`
+- Checklists: `checklists/review.md`
+- Evaluation: optional `evaluation/execution_quality.md`
 - State to inspect: `state/task_state.yaml`, `state/execution_state.yaml`
 - State update expectation: optional lightweight update
+
+### documentation + medium
+
+- Constitution: `constitution/core.md`, `constitution/stability.md`, `constitution/architecture.md`
+- Invariants: `invariants/core.md`
+- Policies: `policies/runtime.yaml`, `policies/workflow.yaml`, `policies/safety.yaml`
+- Workflow: `workflows/documentation.md`
+- Skills: `skills/planning.md`, `skills/implementation.md`, `skills/review.md`, `skills/state_management.md`
+- Checklists: `checklists/review.md`, `checklists/architecture.md` when governance behavior or architecture decisions are documented
+- Evaluation: `evaluation/execution_quality.md`, `evaluation/governance_compliance.md` when documentation changes agent behavior
+- State to inspect: `state/task_state.yaml`, `state/context_state.yaml`, `state/execution_state.yaml`, `state/verification_state.yaml`
+- State update expectation: recommended when assumptions, governance behavior, or persistent decisions change
+
+### documentation + high
+
+- Constitution: `constitution/core.md`, `constitution/stability.md`, `constitution/architecture.md`, `constitution/engineering_control.md`
+- Invariants: `invariants/core.md`
+- Policies: `policies/runtime.yaml`, `policies/workflow.yaml`, `policies/safety.yaml`, `policies/permissions.yaml`
+- Workflow: `workflows/documentation.md`
+- Skills: `skills/planning.md`, `skills/implementation.md`, `skills/review.md`, `skills/architecture_review.md`, `skills/state_management.md`
+- Checklists: `checklists/review.md`, `checklists/architecture.md`, `checklists/safety.md`
+- Evaluation: `evaluation/execution_quality.md`, `evaluation/architecture_stability.md` when architecture meaning changes, `evaluation/governance_compliance.md`
+- State to inspect: `state/task_state.yaml`, `state/architecture_state.yaml`, `state/risk_state.yaml`, `state/context_state.yaml`, `state/execution_state.yaml`, `state/verification_state.yaml`
+- State update expectation: required
 
 ### feature development + medium
 
@@ -108,7 +132,7 @@ Load governance material based on task class and risk.
 - Constitution: `constitution/core.md`, `constitution/architecture.md`
 - Invariants: `invariants/core.md`
 - Policies: `policies/workflow.yaml`
-- Workflow: `workflows/refactor.md` if structure is being reviewed, otherwise `workflows/bugfix.md` is not loaded and review remains non-editing
+- Workflow: `workflows/review.md`
 - Skills: `skills/review.md`, `skills/architecture_review.md`
 - Checklists: `checklists/review.md`, `checklists/architecture.md` when architecture is in scope
 - Evaluation: `evaluation/governance_compliance.md` when reviewing governance use, otherwise optional
@@ -132,7 +156,7 @@ Load governance material based on task class and risk.
 - Constitution: `constitution/core.md`, `constitution/stability.md`
 - Invariants: `invariants/core.md`
 - Policies: `policies/workflow.yaml`, `policies/safety.yaml`
-- Workflow: `workflows/feature_development.md` for additive setup, `workflows/refactor.md` for structural reorganization
+- Workflow: `workflows/documentation.md` for docs-only maintenance, `workflows/feature_development.md` for additive setup, `workflows/refactor.md` for structural reorganization
 - Skills: `skills/planning.md`, `skills/implementation.md`, `skills/review.md`, `skills/state_management.md`
 - Checklists: `checklists/implementation.md`, `checklists/review.md`
 - Evaluation: `evaluation/execution_quality.md`

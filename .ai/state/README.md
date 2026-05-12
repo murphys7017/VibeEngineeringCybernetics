@@ -4,6 +4,14 @@ This directory models explicit control-system state for agent execution.
 
 State files are not hidden memory. They are inspectable records of task, architecture, risk, context, execution, and verification conditions.
 
+## File Status
+
+The YAML files in this directory are v1 runtime state baselines.
+
+They are not examples and they are not read-only templates. They represent the repository's current explicit governance state when maintained.
+
+Because v1 is manual, state updates should be intentional and minimal. Do not update state just to create activity.
+
 ## Purpose
 
 The state layer exists to reduce hidden runtime assumptions.
@@ -49,6 +57,31 @@ Use the following expectations:
 - Low-risk tasks may skip state updates unless state visibility would be useful.
 - Medium-risk tasks should review relevant state and update it when execution meaningfully changes status.
 - High-risk tasks should explicitly review and update relevant state.
+
+## Update Responsibility
+
+The active coding agent is responsible for proposing and applying state updates when the loaded router path marks state updates as recommended or required.
+
+The user remains the authority for project-level state when an update would record a long-lived architecture decision, persistent risk, or governance constraint.
+
+Ask before updating project-scoped state if the update changes long-term project meaning rather than simply recording the current task.
+
+## Required Update Triggers
+
+Update relevant state when any of these occur:
+
+- task risk changes after initial classification
+- task scope expands beyond the original request
+- architecture boundaries are changed or newly identified
+- destructive or irreversible action becomes pending
+- validation fails or cannot be run
+- a persistent known risk or unresolved question is discovered
+
+## Template Policy
+
+If a reusable starting point is needed later, create it under `.ai/state/templates/`.
+
+Do not treat the live files in `.ai/state/` as templates.
 
 ## State File Intent
 
