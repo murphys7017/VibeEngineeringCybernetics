@@ -137,6 +137,7 @@ Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 - checklist 和 evaluation 输出格式
 - 目标满足度和质量准则检查
 - 显式 state 文件说明
+- examples 治理回路样本
 - 无依赖 Python validator
 
 ## 当前边界
@@ -156,7 +157,6 @@ Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 - Python CLI
 - MCP server
 - GitHub Actions 自动打包 Release
-- 示例任务 examples
 - 更强的 validator
 - 针对不同 agent 的安装指南
 

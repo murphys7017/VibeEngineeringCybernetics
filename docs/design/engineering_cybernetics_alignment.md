@@ -125,6 +125,7 @@ The governance system should be revised when practice shows that a rule is uncle
 - The router selects different governance paths based on task class and risk.
 - State files make important execution conditions observable.
 - Checklists, evaluation schemas, and the validator provide feedback.
+- Examples provide regression samples for routing, behavior, evaluation, and correction semantics.
 - Adapters preserve the same control loop across multiple agent runtimes.
 - Release packaging supports practical reuse in other repositories.
 
@@ -134,15 +135,15 @@ The governance system should be revised when practice shows that a rule is uncle
 - The validator checks structure, not actual agent behavior quality.
 - State updates depend on agent discipline and user expectations.
 - Disturbance handling is modeled as a first-class router document in `.ai/router/disturbance_model.md`.
-- Examples are still needed to test the governance loop in realistic tasks.
+- Examples currently test structure and expected semantics, not live agent behavior.
 - CLI and MCP integrations are future work.
 
 ## Next Design Moves
 
 The next improvements should strengthen conceptual and operational alignment without over-formalizing the system:
 
-1. Validate disturbance model behavior through examples and validator checks.
-2. Add examples that demonstrate routing, execution, evaluation, and correction.
-3. Expand the validator to check examples and release package contents.
+1. Validate disturbance model behavior through examples and stronger validator checks.
+2. Expand examples into CLI-consumable route and evaluation fixtures.
+3. Expand the validator to check release package contents.
 4. Build a small Python CLI around classification, routing, validation, and reporting.
 5. Consider MCP integration only after the CLI behavior is stable.

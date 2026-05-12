@@ -73,6 +73,36 @@ EXPECTED_STATE_FIELDS = {
     "verification_state.yaml": ["verification:", "checks_run:", "checks_failed:", "validation_gap:"],
 }
 
+EXPECTED_EXAMPLE_FILES = [
+    "request.md",
+    "expected_route.yaml",
+    "expected_behavior.md",
+    "expected_evaluation.yaml",
+]
+
+EXPECTED_EXAMPLE_ROUTE_FIELDS = [
+    "task_class:",
+    "risk_level:",
+    "workflow:",
+    "required_policies:",
+    "required_checklists:",
+    "expected_evaluation:",
+    "state_update:",
+]
+
+EXPECTED_EXAMPLE_EVALUATION_FIELDS = [
+    "evaluation:",
+    "objective_satisfaction:",
+    "execution_quality:",
+    "governance_compliance:",
+    "validation_status:",
+    "evidence:",
+    "validation_gap:",
+    "residual_risk:",
+    "required_correction:",
+    "follow_up_required:",
+]
+
 
 @dataclass(frozen=True)
 class Finding:
@@ -112,6 +142,7 @@ class Validator:
         self.check_evaluation_schema()
         self.check_state_schema()
         self.check_adapter_protocol_links()
+        self.check_examples()
         return self.findings
 
     def check_required_files(self) -> None:
@@ -452,6 +483,55 @@ class Validator:
                     self.error(relative, f"adapter is missing required load reference: {required_ref}")
             if "Do not bypass the router layer" not in text:
                 self.error(relative, "adapter does not enforce router usage")
+
+    def check_examples(self) -> None:
+        examples_dir = self.root / "examples"
+        if not examples_dir.exists():
+            return
+
+        readme = examples_dir / "README.md"
+        if not readme.exists():
+            self.error("examples/README.md", "examples README is missing")
+
+        example_dirs = sorted(path for path in examples_dir.iterdir() if path.is_dir())
+        if not example_dirs:
+            self.error("examples", "examples directory has no example cases")
+            return
+
+        for example_dir in example_dirs:
+            relative_dir = example_dir.relative_to(self.root).as_posix()
+
+            for filename in EXPECTED_EXAMPLE_FILES:
+                path = example_dir / filename
+                if not path.exists():
+                    self.error(f"{relative_dir}/{filename}", "example file is missing")
+
+            route = example_dir / "expected_route.yaml"
+            behavior = example_dir / "expected_behavior.md"
+            evaluation = example_dir / "expected_evaluation.yaml"
+            if not route.exists() or not behavior.exists() or not evaluation.exists():
+                continue
+
+            route_text = route.read_text(encoding="utf-8")
+            behavior_text = behavior.read_text(encoding="utf-8")
+            evaluation_text = evaluation.read_text(encoding="utf-8")
+
+            for field in EXPECTED_EXAMPLE_ROUTE_FIELDS:
+                if field not in route_text:
+                    self.error(route.relative_to(self.root).as_posix(), f"expected route is missing field: {field}")
+
+            for ref in re.findall(r"-\s+(\.ai/[^\s]+)", route_text):
+                if not (self.root / ref).exists():
+                    self.error(route.relative_to(self.root).as_posix(), f"referenced runtime file does not exist: {ref}")
+
+            if "Acceptable behavior:" not in behavior_text:
+                self.error(behavior.relative_to(self.root).as_posix(), "expected behavior is missing acceptable behavior section")
+            if "Unacceptable behavior:" not in behavior_text:
+                self.error(behavior.relative_to(self.root).as_posix(), "expected behavior is missing unacceptable behavior section")
+
+            for field in EXPECTED_EXAMPLE_EVALUATION_FIELDS:
+                if field not in evaluation_text:
+                    self.error(evaluation.relative_to(self.root).as_posix(), f"expected evaluation is missing field: {field}")
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:

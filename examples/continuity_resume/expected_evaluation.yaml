@@ -1,0 +1,16 @@
+evaluation:
+  objective_satisfaction: pass | partial
+  execution_quality: pass
+  architecture_stability: not_applicable
+  governance_compliance: pass
+  validation_status: partial
+  evidence:
+    - continuity checkpoint
+    - reloaded governance files
+    - repository status
+  validation_gap:
+    - prior conversation context may be incomplete
+  residual_risk:
+    - hidden prior assumptions may still require user confirmation
+  required_correction: []
+  follow_up_required: false
