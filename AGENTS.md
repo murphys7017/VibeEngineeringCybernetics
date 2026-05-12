@@ -26,6 +26,7 @@ Prefer policy-driven execution over prompt-driven behavior: classify the task, e
 ## Core Behavior
 
 - Follow a closed execution loop: analyze, plan, implement, review, validate, correct.
+- Make the task objective, success criteria, and non-goals explicit when they affect execution.
 - Prefer stable constrained execution over unconstrained changes.
 - Build context before editing files.
 - Make the smallest correct change that solves the task.

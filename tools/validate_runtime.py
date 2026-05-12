@@ -27,6 +27,7 @@ REQUIRED_FILES = [
     ".ai/runtime/continuity.md",
     ".ai/checklists/continuity.md",
     ".ai/policies/correctness.yaml",
+    ".ai/policies/objective.yaml",
     ".ai/policies/workflow.yaml",
     ".ai/workflows/documentation.md",
     ".ai/workflows/feature_development.md",
@@ -36,6 +37,7 @@ REQUIRED_FILES = [
     ".ai/workflows/release.md",
     ".ai/checklists/review.md",
     ".ai/checklists/root_cause.md",
+    ".ai/checklists/objective_satisfaction.md",
     ".ai/evaluation/README.md",
     ".ai/skills/dataflow_review.md",
     ".ai/state/README.md",
@@ -102,6 +104,7 @@ class Validator:
         self.check_governance_map()
         self.check_disturbance_model_linkage()
         self.check_runtime_continuity()
+        self.check_objective_discipline()
         self.check_correctness_discipline()
         self.check_task_class_coverage()
         self.check_policy_schema()
@@ -277,6 +280,64 @@ class Validator:
         for required in ["root cause", "fallback", "primary path", "checklist_result:"]:
             if required not in checklist_text:
                 self.error(root_cause_checklist, f"root cause checklist is missing concept: {required}")
+
+    def check_objective_discipline(self) -> None:
+        agents = "AGENTS.md"
+        index = ".ai/index.md"
+        loading_rules = ".ai/router/loading_rules.md"
+        objective_policy = ".ai/policies/objective.yaml"
+        objective_checklist = ".ai/checklists/objective_satisfaction.md"
+        evaluation = ".ai/evaluation/README.md"
+
+        for relative in [agents, index, loading_rules, objective_policy, objective_checklist, evaluation]:
+            if not self.exists(relative):
+                return
+
+        agents_text = self.read_text(agents)
+        index_text = self.read_text(index)
+        loading_text = self.read_text(loading_rules)
+        policy_text = self.read_text(objective_policy)
+        checklist_text = self.read_text(objective_checklist)
+        evaluation_text = self.read_text(evaluation)
+
+        for required in ["task objective", "success criteria", "non-goals"]:
+            if required not in agents_text:
+                self.error(agents, f"agent entry point is missing objective concept: {required}")
+
+        for ref in ["policies/objective.yaml", "checklists/objective_satisfaction.md"]:
+            if ref not in index_text:
+                self.error(index, f"governance map is missing objective reference: {ref}")
+            if ref not in loading_text:
+                self.error(loading_rules, f"loading rules are missing objective reference: {ref}")
+
+        for required in [
+            "objective_before_execution",
+            "quality_criteria_before_completion",
+            "non_goals_limit_scope",
+        ]:
+            if required not in policy_text:
+                self.error(objective_policy, f"objective policy is missing rule: {required}")
+
+        for required in [
+            "checklist: objective_satisfaction",
+            "success criteria",
+            "non-goals",
+            "quality criteria",
+            "required_correction:",
+        ]:
+            if required not in checklist_text:
+                self.error(objective_checklist, f"objective checklist is missing concept: {required}")
+
+        if "objective_satisfaction: pass | partial | fail | not_applicable" not in evaluation_text:
+            self.error(evaluation, "evaluation schema is missing objective_satisfaction")
+
+        workflow_dir = self.root / ".ai" / "workflows"
+        if workflow_dir.exists():
+            for path in sorted(workflow_dir.glob("*.md")):
+                text = path.read_text(encoding="utf-8")
+                relative = path.relative_to(self.root).as_posix()
+                if "objective" not in text and "success criteria" not in text:
+                    self.error(relative, "workflow does not mention objective or success criteria")
 
     def check_task_class_coverage(self) -> None:
         classification = ".ai/router/task_classification.md"

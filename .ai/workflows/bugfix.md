@@ -11,12 +11,13 @@ Use this workflow when the primary output is correction of faulty behavior.
 ## Required Loop
 
 1. Reproduce or reason from concrete evidence.
-2. State the current root-cause hypothesis.
-3. Identify the smallest faulty behavior boundary.
-4. Patch at the point where the defect is introduced.
-5. Validate the primary path, not only fallback or degraded behavior.
-6. Check for regressions or adjacent failure modes.
-7. For long-running or multi-turn work, run a continuity checkpoint before continuing after major changes and before completion.
+2. Define the corrected behavior and success criteria.
+3. State the current root-cause hypothesis.
+4. Identify the smallest faulty behavior boundary.
+5. Patch at the point where the defect is introduced.
+6. Validate the primary path, not only fallback or degraded behavior.
+7. Check for regressions, adjacent failure modes, and objective satisfaction.
+8. For long-running or multi-turn work, run a continuity checkpoint before continuing after major changes and before completion.
 
 ## Default Skills
 
@@ -33,6 +34,7 @@ Required:
 - `checklists/implementation.md`
 - `checklists/review.md`
 - `checklists/root_cause.md`
+- `checklists/objective_satisfaction.md`
 
 Optional based on risk:
 
@@ -60,6 +62,7 @@ Optional based on risk:
 ## Exit Conditions
 
 - faulty behavior is corrected or the boundary of the unresolved issue is explicit
+- corrected behavior satisfies the stated success criteria or the gap is explicit
 - fallback or degraded paths are not used as proof of correctness
 - validation status is known
 - likely regressions were considered

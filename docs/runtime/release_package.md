@@ -9,6 +9,8 @@ The release package includes:
 - `AGENTS.md`
 - `.ai/`
 - `.ai/runtime/continuity.md`
+- `.ai/policies/objective.yaml`
+- `.ai/checklists/objective_satisfaction.md`
 - `docs/runtime/README.md`
 - `docs/runtime/agent_execution_protocol.md`
 - `docs/runtime/release_package.md`

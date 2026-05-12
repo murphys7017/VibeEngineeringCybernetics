@@ -77,6 +77,9 @@ The router is the control selection layer.
 
 Before final response, an agent should know:
 
+- task objective
+- success criteria or acceptance conditions
+- non-goals or scope boundaries
 - task class
 - risk level
 - selected workflow
@@ -97,6 +100,17 @@ For long-running, multi-turn, interrupted, or resumed tasks:
 - re-check task class, risk, disturbances, selected workflow, validation gaps, and correction state
 
 The agent must not assume the initial governance load remains valid after scope, risk, context, or user intent changes.
+
+## Objective Discipline
+
+Before implementing or claiming completion:
+
+- use `policies/objective.yaml` to keep work aligned to the requested outcome
+- use `checklists/objective_satisfaction.md` when the task objective, success criteria, or non-goals affect correctness
+- distinguish objective satisfaction from merely completing adjacent cleanup
+- report partial satisfaction, tradeoffs, or unmet success criteria explicitly
+
+The agent must not treat activity, validation success, or checklist completion as proof that the user's objective was satisfied.
 
 ## Correctness Discipline
 

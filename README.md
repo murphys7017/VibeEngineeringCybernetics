@@ -71,6 +71,7 @@ lightweight execution discipline as v1 scope
 │   ├── constitution/      # 稳定原则和长期理念
 │   ├── invariants/        # 不应违反的核心不变量
 │   ├── policies/          # 可结构化解析的执行约束
+│   ├── runtime/           # 持续执行和上下文恢复控制
 │   ├── router/            # 任务分类、风险评估、加载规则
 │   ├── workflows/         # 不同任务类型的执行闭环
 │   ├── skills/            # 可复用操作过程
@@ -118,7 +119,8 @@ Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 4. 读取 `.ai/invariants/core.md`
 5. 使用 `.ai/router/task_classification.md` 分类任务
 6. 使用 `.ai/router/risk_levels.md` 和 `.ai/router/disturbance_model.md` 评估风险
-7. 使用 `.ai/router/loading_rules.md` 加载对应 policies、workflows、skills、checklists 和 state
+7. 对长任务、多轮任务或中断恢复任务读取 `.ai/runtime/continuity.md`
+8. 使用 `.ai/router/loading_rules.md` 加载对应 policies、workflows、skills、checklists 和 state
 
 更完整的共享执行协议见：
 
@@ -133,6 +135,7 @@ Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 - 文档、功能开发、bugfix、重构、审阅、发布等 workflow
 - Codex、OpenCode、Claude Code、Cursor adapter
 - checklist 和 evaluation 输出格式
+- 目标满足度和质量准则检查
 - 显式 state 文件说明
 - 无依赖 Python validator
 
