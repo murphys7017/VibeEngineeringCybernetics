@@ -155,6 +155,14 @@ Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 - 更强的 validator
 - 针对不同 agent 的安装指南
 
+## Release 包
+
+仓库包含 GitHub Actions 自动发布流程。push 到 `master` 后会运行 validator，并打包一个可复制到其他项目根目录的 zip。
+
+Release 包说明见：
+
+- `docs/runtime/release_package.md`
+
 ## 参考材料
 
 `references/engineering-cybernetics/` 中保存了《工程控制论》相关参考资料。

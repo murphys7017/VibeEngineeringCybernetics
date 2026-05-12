@@ -1,0 +1,89 @@
+name: Release Runtime Package
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Validate and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Validate governance runtime
+        run: python tools/validate_runtime.py --warnings-as-errors
+
+      - name: Build runtime package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          VERSION="v0.1.${GITHUB_RUN_NUMBER}"
+          PACKAGE_DIR="dist/vibe-engineering-cybernetics-${VERSION}"
+
+          mkdir -p "${PACKAGE_DIR}/docs/runtime"
+          mkdir -p "${PACKAGE_DIR}/tools"
+
+          cp AGENTS.md "${PACKAGE_DIR}/"
+          cp README.md "${PACKAGE_DIR}/"
+          cp -R .ai "${PACKAGE_DIR}/.ai"
+          cp docs/runtime/README.md "${PACKAGE_DIR}/docs/runtime/"
+          cp docs/runtime/agent_execution_protocol.md "${PACKAGE_DIR}/docs/runtime/"
+          cp docs/runtime/release_package.md "${PACKAGE_DIR}/docs/runtime/"
+          cp tools/README.md "${PACKAGE_DIR}/tools/"
+          cp tools/validate_runtime.py "${PACKAGE_DIR}/tools/"
+
+          {
+            echo "# Install"
+            echo
+            echo "Copy the contents of this package into the root directory of your target repository."
+            echo
+            echo "Recommended first check:"
+            echo
+            echo '```bash'
+            echo "python tools/validate_runtime.py --warnings-as-errors"
+            echo '```'
+            echo
+            echo 'Then customize `AGENTS.md` for your project and ask your coding agent to use it as the project entry point.'
+          } > "${PACKAGE_DIR}/INSTALL.md"
+
+          (cd dist && zip -r "vibe-engineering-cybernetics-${VERSION}.zip" "vibe-engineering-cybernetics-${VERSION}")
+
+          echo "VERSION=${VERSION}" >> "${GITHUB_ENV}"
+          echo "PACKAGE_PATH=dist/vibe-engineering-cybernetics-${VERSION}.zip" >> "${GITHUB_ENV}"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.VERSION }}
+          name: Vibe Engineering Cybernetics ${{ env.VERSION }}
+          files: ${{ env.PACKAGE_PATH }}
+          body: |
+            Automated release of the AI governance runtime package.
+
+            Contents:
+            - `AGENTS.md`
+            - `.ai/`
+            - `docs/runtime/agent_execution_protocol.md`
+            - `docs/runtime/release_package.md`
+            - `tools/validate_runtime.py`
+            - `README.md`
+
+            Install by extracting the zip into a target repository root, then run:
+
+            ```bash
+            python tools/validate_runtime.py --warnings-as-errors
+            ```
