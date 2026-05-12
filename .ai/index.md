@@ -85,3 +85,13 @@ Before final response, an agent should know:
 - whether correction remains required
 
 If any of these are unknown for a medium or high-risk task, report the gap explicitly.
+
+## Correctness Discipline
+
+When reviewing or fixing behavior:
+
+- use `policies/correctness.yaml` to distinguish root-cause fixes from downstream masking
+- use `skills/dataflow_review.md` when correctness crosses multiple boundaries
+- use `checklists/root_cause.md` for bugfixes, fallback-heavy paths, and degraded behavior
+
+Fallback, default values, retries, or swallowed errors are not proof that the primary path is correct.

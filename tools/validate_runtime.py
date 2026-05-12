@@ -24,6 +24,7 @@ REQUIRED_FILES = [
     ".ai/router/risk_levels.md",
     ".ai/router/disturbance_model.md",
     ".ai/router/loading_rules.md",
+    ".ai/policies/correctness.yaml",
     ".ai/policies/workflow.yaml",
     ".ai/workflows/documentation.md",
     ".ai/workflows/feature_development.md",
@@ -32,7 +33,9 @@ REQUIRED_FILES = [
     ".ai/workflows/review.md",
     ".ai/workflows/release.md",
     ".ai/checklists/review.md",
+    ".ai/checklists/root_cause.md",
     ".ai/evaluation/README.md",
+    ".ai/skills/dataflow_review.md",
     ".ai/state/README.md",
     "docs/runtime/agent_execution_protocol.md",
 ]
@@ -96,6 +99,7 @@ class Validator:
         self.check_loading_rule_links()
         self.check_governance_map()
         self.check_disturbance_model_linkage()
+        self.check_correctness_discipline()
         self.check_task_class_coverage()
         self.check_policy_schema()
         self.check_checklist_result_schema()
@@ -182,6 +186,43 @@ class Validator:
         ]:
             if required not in disturbance_text:
                 self.error(disturbance_model, f"disturbance model is missing section: {required}")
+
+    def check_correctness_discipline(self) -> None:
+        index = ".ai/index.md"
+        loading_rules = ".ai/router/loading_rules.md"
+        correctness_policy = ".ai/policies/correctness.yaml"
+        dataflow_skill = ".ai/skills/dataflow_review.md"
+        root_cause_checklist = ".ai/checklists/root_cause.md"
+
+        for relative in [index, loading_rules, correctness_policy, dataflow_skill, root_cause_checklist]:
+            if not self.exists(relative):
+                return
+
+        index_text = self.read_text(index)
+        loading_text = self.read_text(loading_rules)
+        policy_text = self.read_text(correctness_policy)
+        skill_text = self.read_text(dataflow_skill)
+        checklist_text = self.read_text(root_cause_checklist)
+
+        for ref in ["policies/correctness.yaml", "skills/dataflow_review.md", "checklists/root_cause.md"]:
+            if ref not in index_text:
+                self.error(index, f"governance map is missing correctness reference: {ref}")
+
+        for ref in ["policies/correctness.yaml", "skills/dataflow_review.md", "checklists/root_cause.md"]:
+            if ref not in loading_text:
+                self.error(loading_rules, f"loading rules are missing correctness reference: {ref}")
+
+        for required in ["root_cause_over_masking", "fallback_not_correctness_proof", "observable_failure_paths"]:
+            if required not in policy_text:
+                self.error(correctness_policy, f"correctness policy is missing rule: {required}")
+
+        for required in ["primary path", "fallback", "confirmed faulty", "insufficient information"]:
+            if required not in skill_text:
+                self.error(dataflow_skill, f"dataflow review skill is missing concept: {required}")
+
+        for required in ["root cause", "fallback", "primary path", "checklist_result:"]:
+            if required not in checklist_text:
+                self.error(root_cause_checklist, f"root cause checklist is missing concept: {required}")
 
     def check_task_class_coverage(self) -> None:
         classification = ".ai/router/task_classification.md"

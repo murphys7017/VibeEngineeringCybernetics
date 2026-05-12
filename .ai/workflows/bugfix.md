@@ -11,14 +11,16 @@ Use this workflow when the primary output is correction of faulty behavior.
 ## Required Loop
 
 1. Reproduce or reason from concrete evidence.
-2. Identify the smallest faulty behavior boundary.
-3. Patch locally.
-4. Validate the fix.
-5. Check for regressions or adjacent failure modes.
+2. State the current root-cause hypothesis.
+3. Identify the smallest faulty behavior boundary.
+4. Patch at the point where the defect is introduced.
+5. Validate the primary path, not only fallback or degraded behavior.
+6. Check for regressions or adjacent failure modes.
 
 ## Default Skills
 
 - `skills/debugging.md`
+- `skills/dataflow_review.md` when the defect crosses multiple boundaries
 - `skills/implementation.md`
 - `skills/review.md`
 - `skills/state_management.md` when state is being maintained
@@ -29,6 +31,7 @@ Required:
 
 - `checklists/implementation.md`
 - `checklists/review.md`
+- `checklists/root_cause.md`
 
 Optional based on risk:
 
@@ -55,6 +58,7 @@ Optional based on risk:
 ## Exit Conditions
 
 - faulty behavior is corrected or the boundary of the unresolved issue is explicit
+- fallback or degraded paths are not used as proof of correctness
 - validation status is known
 - likely regressions were considered
 - remaining risks are visible
