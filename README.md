@@ -173,4 +173,4 @@ Release 包说明见：
 
 ## License
 
-暂未指定。
+MIT
