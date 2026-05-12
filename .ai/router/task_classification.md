@@ -124,3 +124,17 @@ After primary classification, record useful secondary concerns when relevant:
 - validation-limited
 
 Secondary tags do not replace the primary task class. They increase governance intensity.
+
+## Naming Convention
+
+Human-readable task class names may use spaces:
+
+- `feature development`
+- `repository maintenance`
+
+State enum values in `state/task_state.yaml` should use snake_case:
+
+- `feature_development`
+- `repository_maintenance`
+
+When matching across documents, consider both forms equivalent. Tools and validators should normalize to snake_case for comparison.

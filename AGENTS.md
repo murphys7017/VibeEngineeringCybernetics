@@ -9,11 +9,12 @@ For the shared Codex/OpenCode/Claude Code/Cursor execution protocol, read `docs/
 ## Default Loading Order
 
 1. Read `.ai/README.md`.
-2. Read `.ai/constitution/core.md`.
-3. Read `.ai/invariants/core.md`.
-4. Classify the task using `.ai/router/task_classification.md`.
-5. Estimate risk using `.ai/router/risk_levels.md`.
-6. Load relevant policies, workflows, skills, and checklists using `.ai/router/loading_rules.md`.
+2. Read `.ai/index.md`.
+3. Read `.ai/constitution/core.md`.
+4. Read `.ai/invariants/core.md`.
+5. Classify the task using `.ai/router/task_classification.md`.
+6. Estimate risk using `.ai/router/risk_levels.md` and `.ai/router/disturbance_model.md`.
+7. Load relevant policies, workflows, skills, and checklists using `.ai/router/loading_rules.md`.
 
 ## Core Behavior
 

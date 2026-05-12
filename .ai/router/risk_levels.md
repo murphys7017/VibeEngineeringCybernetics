@@ -2,6 +2,8 @@
 
 Use risk levels to determine governance intensity.
 
+Risk estimation should also consider `disturbance_model.md`, which defines destabilizing conditions such as ambiguous intent, dirty worktrees, validation gaps, context loss, and governance drift.
+
 ## Risk Factors
 
 Assess risk using these factors:

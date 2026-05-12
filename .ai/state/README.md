@@ -89,6 +89,8 @@ Do not treat the live files in `.ai/state/` as templates.
 
 Records the current task class, scope, risk, phase, and owner.
 
+**Naming note:** State enum values use snake_case (e.g., `feature_development`, `repository_maintenance`). Human-readable task class names in router and workflow documents may use spaces (e.g., `feature development`, `repository maintenance`). Treat both forms as equivalent when mapping between documents.
+
 Recommended values:
 
 - `type`: `documentation`, `feature_development`, `bugfix`, `refactor`, `review`, `release`, `repository_maintenance`, `unknown`

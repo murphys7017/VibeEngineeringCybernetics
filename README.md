@@ -77,7 +77,8 @@ lightweight execution discipline as v1 scope
 │   ├── checklists/        # 完成前检查清单
 │   ├── evaluation/        # 执行质量和治理合规评估
 │   ├── state/             # 显式运行时状态
-│   └── adapters/          # Codex/OpenCode/Claude Code/Cursor 适配说明
+│   ├── adapters/          # Codex/OpenCode/Claude Code/Cursor 适配说明
+│   └── index.md           # 给 agent 读取的治理地图
 ├── docs/
 │   └── runtime/
 │       └── agent_execution_protocol.md
@@ -112,11 +113,12 @@ python tools/validate_runtime.py --warnings-as-errors
 Agent 的默认加载顺序在 `AGENTS.md` 中定义：
 
 1. 读取 `.ai/README.md`
-2. 读取 `.ai/constitution/core.md`
-3. 读取 `.ai/invariants/core.md`
-4. 使用 `.ai/router/task_classification.md` 分类任务
-5. 使用 `.ai/router/risk_levels.md` 评估风险
-6. 使用 `.ai/router/loading_rules.md` 加载对应 policies、workflows、skills、checklists 和 state
+2. 读取 `.ai/index.md`
+3. 读取 `.ai/constitution/core.md`
+4. 读取 `.ai/invariants/core.md`
+5. 使用 `.ai/router/task_classification.md` 分类任务
+6. 使用 `.ai/router/risk_levels.md` 和 `.ai/router/disturbance_model.md` 评估风险
+7. 使用 `.ai/router/loading_rules.md` 加载对应 policies、workflows、skills、checklists 和 state
 
 更完整的共享执行协议见：
 

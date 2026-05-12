@@ -27,12 +27,13 @@ For any non-trivial task, the agent should run this loop:
 1. Load the entry point.
    - Read `AGENTS.md`.
    - Read `.ai/README.md`.
+   - Read `.ai/index.md`.
    - Read `.ai/constitution/core.md`.
    - Read `.ai/invariants/core.md`.
 
 2. Route the task.
    - Classify the task with `.ai/router/task_classification.md`.
-   - Estimate risk with `.ai/router/risk_levels.md`.
+   - Estimate risk with `.ai/router/risk_levels.md` and `.ai/router/disturbance_model.md`.
    - Select governance material using `.ai/router/loading_rules.md`.
 
 3. Load only the selected material.

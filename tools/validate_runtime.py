@@ -17,10 +17,12 @@ from pathlib import Path
 REQUIRED_FILES = [
     "AGENTS.md",
     ".ai/README.md",
+    ".ai/index.md",
     ".ai/constitution/core.md",
     ".ai/invariants/core.md",
     ".ai/router/task_classification.md",
     ".ai/router/risk_levels.md",
+    ".ai/router/disturbance_model.md",
     ".ai/router/loading_rules.md",
     ".ai/policies/workflow.yaml",
     ".ai/workflows/documentation.md",
@@ -92,6 +94,8 @@ class Validator:
     def validate(self) -> list[Finding]:
         self.check_required_files()
         self.check_loading_rule_links()
+        self.check_governance_map()
+        self.check_disturbance_model_linkage()
         self.check_task_class_coverage()
         self.check_policy_schema()
         self.check_checklist_result_schema()
@@ -132,6 +136,52 @@ class Validator:
         for ref in runtime_refs:
             if not (self.root / ".ai" / ref).exists():
                 self.error(relative, f"referenced runtime file does not exist: {ref}")
+
+    def check_governance_map(self) -> None:
+        relative = ".ai/index.md"
+        if not self.exists(relative):
+            return
+
+        text = self.read_text(relative)
+        required_refs = [
+            "router/task_classification.md",
+            "router/risk_levels.md",
+            "router/disturbance_model.md",
+            "router/loading_rules.md",
+            "workflows/",
+            "checklists/",
+            "evaluation/",
+            "state/",
+            "adapters/",
+        ]
+
+        for ref in required_refs:
+            if ref not in text:
+                self.error(relative, f"governance map is missing reference: {ref}")
+
+    def check_disturbance_model_linkage(self) -> None:
+        risk_levels = ".ai/router/risk_levels.md"
+        disturbance_model = ".ai/router/disturbance_model.md"
+        if not self.exists(risk_levels) or not self.exists(disturbance_model):
+            return
+
+        risk_text = self.read_text(risk_levels)
+        disturbance_text = self.read_text(disturbance_model)
+
+        if "disturbance_model.md" not in risk_text:
+            self.error(risk_levels, "risk levels do not reference the disturbance model")
+
+        for required in [
+            "Ambiguous User Intent",
+            "Context Loss",
+            "Dirty Worktree",
+            "Validation Gap",
+            "Scope Creep",
+            "Governance Drift",
+            "Escalation Rule",
+        ]:
+            if required not in disturbance_text:
+                self.error(disturbance_model, f"disturbance model is missing section: {required}")
 
     def check_task_class_coverage(self) -> None:
         classification = ".ai/router/task_classification.md"
@@ -225,11 +275,24 @@ class Validator:
             self.warn(".ai/adapters", "adapter directory is missing")
             return
 
+        required_refs = [
+            "docs/runtime/agent_execution_protocol.md",
+            ".ai/README.md",
+            ".ai/index.md",
+            ".ai/constitution/core.md",
+            ".ai/invariants/core.md",
+            ".ai/router/task_classification.md",
+            ".ai/router/risk_levels.md",
+            ".ai/router/disturbance_model.md",
+            ".ai/router/loading_rules.md",
+        ]
+
         for path in sorted(adapter_dir.glob("*.md")):
             text = path.read_text(encoding="utf-8")
             relative = path.relative_to(self.root).as_posix()
-            if "docs/runtime/agent_execution_protocol.md" not in text:
-                self.error(relative, "adapter does not reference the shared execution protocol")
+            for required_ref in required_refs:
+                if required_ref not in text:
+                    self.error(relative, f"adapter is missing required load reference: {required_ref}")
             if "Do not bypass the router layer" not in text:
                 self.error(relative, "adapter does not enforce router usage")
 

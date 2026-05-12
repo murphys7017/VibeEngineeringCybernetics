@@ -4,8 +4,11 @@ This directory contains the project-level governance runtime for AI coding agent
 
 It is intended to be loaded selectively by adapters, workflows, and task routing rules instead of being copied into one large prompt.
 
+Agents should read `index.md` as the map for this governance runtime after loading the root entry point and before selecting task-specific files.
+
 ## Structure
 
+- `index.md` - agent-readable map of the governance runtime.
 - `constitution/` - stable philosophy and long-term principles.
 - `invariants/` - rules that must not be violated.
 - `policies/` - operational constraints and permissions.
