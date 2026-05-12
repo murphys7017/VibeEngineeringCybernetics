@@ -16,6 +16,7 @@ Use this workflow when the primary output is new behavior, new capability, or an
 4. Review for drift, coupling, and safety.
 5. Validate with available checks.
 6. Correct issues before completion.
+7. For long-running or multi-turn work, run a continuity checkpoint before continuing after major changes and before completion.
 
 ## Default Skills
 
@@ -35,6 +36,7 @@ Optional based on risk:
 
 - `checklists/architecture.md`
 - `checklists/safety.md`
+- `checklists/continuity.md`
 
 ## Evaluation Binding
 

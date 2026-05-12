@@ -15,6 +15,7 @@ Use this workflow when the primary output is release preparation, publication, o
 3. Run available validation.
 4. Confirm release artifacts and notes.
 5. Avoid irreversible publication without explicit approval.
+6. Run a continuity checkpoint before publication or final release readiness claims.
 
 ## Default Skills
 
@@ -28,6 +29,7 @@ Required:
 
 - `checklists/review.md`
 - `checklists/safety.md`
+- `checklists/continuity.md`
 
 Optional based on impact:
 

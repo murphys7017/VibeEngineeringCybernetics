@@ -24,6 +24,8 @@ REQUIRED_FILES = [
     ".ai/router/risk_levels.md",
     ".ai/router/disturbance_model.md",
     ".ai/router/loading_rules.md",
+    ".ai/runtime/continuity.md",
+    ".ai/checklists/continuity.md",
     ".ai/policies/correctness.yaml",
     ".ai/policies/workflow.yaml",
     ".ai/workflows/documentation.md",
@@ -99,6 +101,7 @@ class Validator:
         self.check_loading_rule_links()
         self.check_governance_map()
         self.check_disturbance_model_linkage()
+        self.check_runtime_continuity()
         self.check_correctness_discipline()
         self.check_task_class_coverage()
         self.check_policy_schema()
@@ -127,6 +130,7 @@ class Validator:
                 (
                     "constitution/",
                     "invariants/",
+                    "runtime/",
                     "policies/",
                     "workflows/",
                     "skills/",
@@ -151,6 +155,7 @@ class Validator:
             "router/task_classification.md",
             "router/risk_levels.md",
             "router/disturbance_model.md",
+            "runtime/continuity.md",
             "router/loading_rules.md",
             "workflows/",
             "checklists/",
@@ -186,6 +191,55 @@ class Validator:
         ]:
             if required not in disturbance_text:
                 self.error(disturbance_model, f"disturbance model is missing section: {required}")
+
+    def check_runtime_continuity(self) -> None:
+        agents = "AGENTS.md"
+        index = ".ai/index.md"
+        protocol = "docs/runtime/agent_execution_protocol.md"
+        continuity = ".ai/runtime/continuity.md"
+        checklist = ".ai/checklists/continuity.md"
+
+        for relative in [agents, index, protocol, continuity, checklist]:
+            if not self.exists(relative):
+                return
+
+        agents_text = self.read_text(agents)
+        index_text = self.read_text(index)
+        protocol_text = self.read_text(protocol)
+        continuity_text = self.read_text(continuity)
+        checklist_text = self.read_text(checklist)
+
+        for relative, text in [(agents, agents_text), (index, index_text), (protocol, protocol_text)]:
+            for ref in [".ai/runtime/continuity.md", "checklists/continuity.md"]:
+                if relative == agents and ref == "checklists/continuity.md":
+                    continue
+                if ref not in text:
+                    self.error(relative, f"continuity reference is missing: {ref}")
+
+        for required in [
+            "Governance Checkpoint",
+            "Checkpoint Triggers",
+            "task class",
+            "risk",
+            "disturbance",
+            "scope",
+            "validation",
+            "correction",
+        ]:
+            if required not in continuity_text:
+                self.error(continuity, f"continuity guidance is missing concept: {required}")
+
+        for required in ["checklist_result:", "checklist: continuity", "scope", "risk", "workflow", "validation"]:
+            if required not in checklist_text:
+                self.error(checklist, f"continuity checklist is missing concept: {required}")
+
+        workflow_dir = self.root / ".ai" / "workflows"
+        if workflow_dir.exists():
+            for path in sorted(workflow_dir.glob("*.md")):
+                text = path.read_text(encoding="utf-8")
+                relative = path.relative_to(self.root).as_posix()
+                if "continuity checkpoint" not in text:
+                    self.error(relative, "workflow does not mention continuity checkpoint")
 
     def check_correctness_discipline(self) -> None:
         index = ".ai/index.md"
@@ -325,6 +379,7 @@ class Validator:
             ".ai/router/task_classification.md",
             ".ai/router/risk_levels.md",
             ".ai/router/disturbance_model.md",
+            ".ai/runtime/continuity.md",
             ".ai/router/loading_rules.md",
         ]
 

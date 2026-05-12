@@ -15,6 +15,7 @@ Use this workflow when the primary output is explanatory, descriptive, or govern
 3. Make the smallest clear documentation change.
 4. Review for accuracy, duplication, and scope drift.
 5. Validate links, paths, or examples when practical.
+6. For multi-turn documentation work, run a continuity checkpoint before completion.
 
 ## Default Skills
 
@@ -32,6 +33,7 @@ Optional based on impact:
 
 - `checklists/implementation.md`
 - `checklists/architecture.md`
+- `checklists/continuity.md`
 
 ## Evaluation Binding
 

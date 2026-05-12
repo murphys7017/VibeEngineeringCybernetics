@@ -6,6 +6,7 @@ Load governance material based on task class and risk.
 
 - relevant constitution files
 - core invariants
+- runtime continuity rules when work is long-running, multi-turn, interrupted, or resumed
 - relevant policies
 - one workflow
 - task-specific skills

@@ -20,7 +20,8 @@ Prefer policy-driven execution over prompt-driven behavior: classify the task, e
 4. Read `.ai/invariants/core.md`.
 5. Classify the task using `.ai/router/task_classification.md`.
 6. Estimate risk using `.ai/router/risk_levels.md` and `.ai/router/disturbance_model.md`.
-7. Load relevant policies, workflows, skills, checklists, evaluation, and state files using `.ai/router/loading_rules.md`.
+7. Read `.ai/runtime/continuity.md` for long-running, multi-turn, interrupted, or resumed work.
+8. Load relevant policies, workflows, skills, checklists, evaluation, and state files using `.ai/router/loading_rules.md`.
 
 ## Core Behavior
 

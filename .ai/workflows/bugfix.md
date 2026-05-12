@@ -16,6 +16,7 @@ Use this workflow when the primary output is correction of faulty behavior.
 4. Patch at the point where the defect is introduced.
 5. Validate the primary path, not only fallback or degraded behavior.
 6. Check for regressions or adjacent failure modes.
+7. For long-running or multi-turn work, run a continuity checkpoint before continuing after major changes and before completion.
 
 ## Default Skills
 
@@ -37,6 +38,7 @@ Optional based on risk:
 
 - `checklists/architecture.md`
 - `checklists/safety.md`
+- `checklists/continuity.md`
 
 ## Evaluation Binding
 

@@ -17,6 +17,7 @@ Use this workflow when the primary output is structural improvement while preser
 4. Refactor incrementally.
 5. Validate behavior preservation.
 6. Stop before unrelated redesign.
+7. For long-running or multi-turn work, run a continuity checkpoint before continuing after major changes and before completion.
 
 ## Default Skills
 
@@ -37,6 +38,7 @@ Required:
 Optional based on risk:
 
 - `checklists/safety.md`
+- `checklists/continuity.md`
 
 ## Evaluation Binding
 

@@ -17,6 +17,7 @@ Use this workflow when the primary output is assessment, findings, risk identifi
 4. Identify findings, risks, fallback reliance, and validation gaps.
 5. Prioritize findings by severity.
 6. Report residual risk and validation limits.
+7. For long-running or multi-turn review, run a continuity checkpoint before finalizing findings.
 
 ## Default Skills
 
@@ -36,6 +37,7 @@ Optional based on scope:
 - `checklists/architecture.md`
 - `checklists/safety.md`
 - `checklists/root_cause.md`
+- `checklists/continuity.md`
 
 ## Evaluation Binding
 
