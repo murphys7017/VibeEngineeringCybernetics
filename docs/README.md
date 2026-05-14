@@ -1,12 +1,6 @@
 # Documentation
 
-This directory contains human-facing project documentation.
+- `design/engineering_cybernetics_alignment.md` - conceptual mapping from cybernetics to the agent loop
+- `runtime/release_package.md` - release package contents and install instructions
 
-Runtime governance files belong in `.ai/`. Background source materials belong in `references/`.
-
-## Sections
-
-- `architecture/` - system architecture notes and design boundaries.
-- `runtime/` - runtime behavior and governance execution notes.
-- `design/` - design rationale, concepts, and tradeoffs.
-- `api/` - public interfaces, schemas, and integration contracts.
+Agent-facing guide: `.ai/index.md`

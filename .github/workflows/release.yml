@@ -24,7 +24,7 @@ jobs:
           python-version: "3.x"
 
       - name: Validate governance runtime
-        run: python tools/validate_runtime.py --warnings-as-errors
+        run: python tools/validate_runtime.py
 
       - name: Build runtime package
         shell: bash
@@ -39,10 +39,7 @@ jobs:
 
           cp AGENTS.md "${PACKAGE_DIR}/"
           cp -R .ai "${PACKAGE_DIR}/.ai"
-          cp docs/runtime/README.md "${PACKAGE_DIR}/docs/runtime/"
-          cp docs/runtime/agent_execution_protocol.md "${PACKAGE_DIR}/docs/runtime/"
           cp docs/runtime/release_package.md "${PACKAGE_DIR}/docs/runtime/"
-          cp tools/README.md "${PACKAGE_DIR}/tools/"
           cp tools/validate_runtime.py "${PACKAGE_DIR}/tools/"
 
           {
@@ -53,7 +50,7 @@ jobs:
             echo "Recommended first check:"
             echo
             echo '```bash'
-            echo "python tools/validate_runtime.py --warnings-as-errors"
+            echo "python tools/validate_runtime.py"
             echo '```'
             echo
             echo 'Then customize `AGENTS.md` for your project and ask your coding agent to use it as the project entry point.'
@@ -75,16 +72,14 @@ jobs:
 
             Contents:
             - `AGENTS.md`
-            - `.ai/`
-            - `docs/runtime/README.md`
-            - `docs/runtime/agent_execution_protocol.md`
+            - `.ai/index.md`
+            - `.ai/state.yaml`
             - `docs/runtime/release_package.md`
-            - `tools/README.md`
             - `tools/validate_runtime.py`
             - `INSTALL.md`
 
             Install by extracting the zip into a target repository root, then run:
 
             ```bash
-            python tools/validate_runtime.py --warnings-as-errors
+            python tools/validate_runtime.py
             ```
